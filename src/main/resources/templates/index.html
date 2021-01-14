@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>模板</title>
+    <!--    <link rel="stylesheet" type="text/css" th:href="@{../main.css}">-->
+    <link rel="stylesheet" type="text/css"  href="main.css" th:href="@{../main.css}">
+    <!--当我们在有后台渲染的情况下，后台会把这个标签渲染为这样,没有渲染的时候 th:href="@{../main.css}"不识别-->
+    <!--<link rel="stylesheet" type="text/css"  href="../main.css" >-->
+</head>
+<body>
+<!--获取属性-->
+<span th:text="${name}"></span><br/>
+
+<!--获取对象-->
+<span th:text="${user.uid}"></span><br/>
+<span th:text="${user.uname}"></span><br/>
+<span th:text="${user.usex}"></span><br/>
+
+<!--实现列表数据的展示-->
+<tr th:each="UserVo,iterStat:${ulist}">
+    <td th:text="${iterStat.index}"></td><br/>
+    <td th:text="${UserVo.uid}"></td><br/>
+    <td th:text="${UserVo.uname}"></td><br/>
+    <td th:text="${UserVo.usex}"></td><br/>
+</tr>
+
+
+<!--实现模板中字符串拼接功能-->
+<!--第一种-->
+<span th:text="'欢迎:'+${name}+'来到这里!'"></span><br/>
+<!--第二种-->
+<span th:text="|欢迎:${name}来到这里!|"></span><br/>
+
+
+<!-- th:if 条件成立就显示 -->
+<h1 th:if="${flag=='yes'}" >中公教育</h1>
+<!-- th:unless 条件不成立就显示 -->
+<h1 th:unless="${flag=='no'}" >优就业</h1>
+<!-- switch选择语句 -->
+<div th:switch="${menu}">
+    <p th:case="'admin'">User is an administrator</p>
+    <p th:case="${manager}">User is a manager</p>
+</div>
+
+<!--加载图片-->
+<!--<img src="../1.jpg"><br/>
+<img th:src="${pic}" ><br/>-->
+
+
+<!-- 把片段的内容插入到当前位置 -->
+<div th:insert="~{footer::copy}"></div>
+<!-- 使用片段的内容替换当前标签 -->
+<div th:replace="~{footer::copy}"></div>
+<!-- 保留自己的主标签，不要片段的主标签 -->
+<div th:include="~{footer::copy}"></div>
+
+
+
+<!--日期对象以及相应的函数-->
+<p th:text="${#dates.format(data1,'yyyy-MM-dd')}"></p>
+<hr>
+
+<!--数值对象-->
+<P th:text="${#numbers.formatDecimal(num,2,2)}"></P>
+<hr>
+<hr>
+
+<!--字符串对象以及函数-->
+<p th:text="${#strings.abbreviate(str,60)}"></p>
+<hr>
+<p th:text="${#strings.substring(str,60)}"></p>
+
+
+</body>
+</html>

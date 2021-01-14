@@ -1,0 +1,5 @@
+
+# «∑Ò∆Ù”√ª∫¥Ê
+spring:
+  thymeleaf:
+    cache: false
